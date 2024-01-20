@@ -1,5 +1,3 @@
-# Created on 26-Aug-2023
-
 # NVT 20
 
 import numpy as np

@@ -242,12 +242,12 @@ for i in range(num_frames):
     
     tot_neighbor = other12[i] + hex_ice12[i] + cub_ice12[i] + intf_ice12[i] + intf_hyd12[i] + hyd12[i]
     
-    frac_store12[i, 0] = other12[i] / tot_neighbor #other4[i]
-    frac_store12[i, 1] = hex_ice12[i] / tot_neighbor #hex_ice4[i]
-    frac_store12[i, 2] = cub_ice12[i] / tot_neighbor #cub_ice4[i]
-    frac_store12[i, 3] = intf_ice12[i] / tot_neighbor #intf_ice4[i]
-    frac_store12[i, 4] = intf_hyd12[i] / tot_neighbor #intf_hyd4[i]
-    frac_store12[i, 5] = hyd12[i] / tot_neighbor #hyd4[i]
+    frac_store12[i, 0] = other12[i] / tot_neighbor 
+    frac_store12[i, 1] = hex_ice12[i] / tot_neighbor 
+    frac_store12[i, 2] = cub_ice12[i] / tot_neighbor 
+    frac_store12[i, 3] = intf_ice12[i] / tot_neighbor 
+    frac_store12[i, 4] = intf_hyd12[i] / tot_neighbor
+    frac_store12[i, 5] = hyd12[i] / tot_neighbor
 
 ########################################################################################
 # dataframe visualization

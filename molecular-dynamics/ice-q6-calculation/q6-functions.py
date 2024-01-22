@@ -2,9 +2,9 @@ def read_file(file_path):
     
     # open the file without the need to close the file
     with open(file_path,'r') as file_content:
-        line_count = sum(1 for num_lines in file_content) #this line allows checking of all the lines in the file
+        all_lines = file_content.readlines() #reads and stores all the lines from the file
+        line_count = len(all_lines)
         file_content.seek(0) #brings the cursor back to the start after complete iteration
-        all_lines = [next(file_content) for _ in range(line_count)] #reads and stores all the lines from the file
 
     start_counting = 2 #start the counting of the lines, first two lines are redundant
     stop_counting = line_count - 1 #the last line is also redundant 

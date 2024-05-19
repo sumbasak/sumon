@@ -1,7 +1,5 @@
 # README
 
-The last update to the code was on **26-Aug-2023**.
-
 In this folder, the entire piece of Lennard-Jones potential code has been scripted. Entirely in Python and optimized in [Jupyter lab](https://jupyter.org/install). Some sections have been divided into functions for better readability and further optimization. 
 
 **lj_parameters.py** contains all the parameters and the initial variables that are essential to calculate a variety of parameters. It also contains those files in which the calculated results would be written for further processing. 

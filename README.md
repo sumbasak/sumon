@@ -1,8 +1,18 @@
-# README
-This public repository contains all the codes that I have written so far. Be it molecular dynamics, machine learning, or even mathematical practice problems. All codes find their home in this repo. All codes should be used with caution and should be modified to suit the circumstances and needs. 
+# WELCOME
+This repository contains all the codes that I have written so far. I majorly rely on Python for my day-to-day tasks. However, I also write bash and C++ scripts if there is a need to. 
 
-Some folders contain their initial completion dates. Some don't. That is because my **Github** page is quite new and some scripts are old. Folders where `readme.md` files don't contain any dates, should be understood that the folder's scripts have been written very recently and uploaded.
+💡Project 0: Lennard Jones Interactions
 
-All Python scripts are scribbled for use in specific Python IDE (like Jupyter Lab or Google Colab) and thus, the code blocks may contain certain magic commands that are used for only those IDEs. In other IDEs, those magic commands may render errors and should be removed before compiling.
- 
-_Since my project in **Molecular Dynamics** is continuing and the manuscript is being prepared, all Python scripts won't be uploaded until the article is published._
+My initial project was Lennard Jones interaction calculations. I call it Project 0 because it taught me how to structure code, debug, and perform I/O operations. 
+
+💡Project 1: Ice Growth
+
+This project deals with the crystalline growth of ice on prism and basal planes. I contributed to the understanding of water behavior at the ice surface, its transrotational movement, and finally, the influence of neighbors in the occurrence of specific ice polymorphs. 
+
+💡Project 2: Enzyme Classification
+
+This project aims to develop an ML model that can classify enzymes at level 1, that is, the parent 7 classes of enzymes. I explored natural language processing (NLP)-led feature engineering, classifier model development, and its validation on an independent data set. 
+
+📝PS1: Both of my manuscripts are under preparation. That is why, specific codes have been left intentionally blank. Once all these projects are published, all codes would be updated. 
+
+📝PS2: All these Python scripts have been written in Jupyter Lab and Kaggle, thus, certain magic commands (say, %%time) that work in those IDEs may render errors in other IDEs. I urge anyone to practice caution if any code is being reused.  

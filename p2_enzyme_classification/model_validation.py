@@ -1,15 +1,74 @@
 # import required libraries
 
-# predict test set
-y_pred = classifier.predict(X_test)
-
 # validation of model
-from sklearn.metrics import classification_report, accuracy_score
-from sklearn.model_selection import cross_val_score
+class ModelValidation():
+    
+    def __init__(self, classifier, X, y, test_size=0.2, random_state=42):
+        
+        from sklearn.model_selection import train_test_split
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+        
+        self.Xtrain = X_train
+        self.ytrain = y_train
+        self.Xtest = X_test
+        self.ytest = y_test
+        self.x = X
+        self.y = y
+        self.clf = classifier
+        self.ypred = classifier.predict(X_test) 
+        
+    def clf_report(self):
+        
+        from sklearn.metrics import classification_report
+        
+        print('Here is the classification report: \n\n\n', 
+              classification_report(self.ytest, self.ypred), '\n')
+        
+    def scores(self, avg='macro'):
+        
+        from sklearn.metrics import accuracy_score, f1_score, recall_score 
+        from sklearn.metrics import precision_score, roc_auc_score, matthews_corrcoef
+        from sklearn.metrics import balanced_accuracy_score, hamming_loss
+        from tabulate import tabulate
+        
+        score_dict = [
+            ['Metrics', 'Scores (%)'],
+            ['Accuracy score', round(accuracy_score(self.ytest, self.ypred)*100, 2)],
+            ['Balanced accuracy score', round(balanced_accuracy_score(self.ytest, self.ypred)*100, 2)],
+            ['Precision score', round(precision_score(self.ytest, self.ypred, average=avg)*100, 2)],
+            ['Recall score', round(recall_score(self.ytest, self.ypred, average=avg)*100, 2)],
+            ['f1 score', round(f1_score(self.ytest, self.ypred, average=avg)*100, 2)],
+            ['Mathews coefficient', round(matthews_corrcoef(self.ytest, self.ypred), 2)],
+            ['Hamming loss', round(hamming_loss(self.ytest, self.ypred)*100, 2)]
+        ]
+        
+        print(tabulate(score_dict, headers='firstrow', tablefmt='github'))
+        
+    def cvs(self, cv=10):
+        
+        from sklearn.model_selection import cross_val_score
+        
+        cv_score = cross_val_score(self.clf, self.x, self.y, cv=cv)
+        
+        print(f'\nCross validation score: {round(cv_score.mean()*100, 2)}% \n')
+        
+        return cv_score
+    
+    def cm(self):
+        
+        from sklearn.metrics import confusion_matrix
+        
+        print('\nConfusion matrix: \n', confusion_matrix(self.ytest, self.ypred), '\n')
 
-print('Classification report: \n\n', classification_report(y_test, y_pred), '\n')
-print('Accuracy score: \n', accuracy_score(y_test, y_pred), '\n')
-print('Cross validation score: \n', np.round(cross_val_score(classifier, X, y, cv=10).mean())*100, 2)
+
+##########################################################################################
+# main code
+
+assessment = ModelValidation(classifier, X, y)
+
+assessment.scores()
+assessment.cm()
+assessment.cvs()
 
 # test overfitting
 from sklearn.model_selection import learning_curve

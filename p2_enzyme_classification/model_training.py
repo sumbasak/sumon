@@ -13,6 +13,120 @@ import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 
+# classes
+
+class DfDetails():
+    
+    '''
+    A class to explore structures of data frame.
+    
+    Parameters:
+    -------------
+    df: a pandas data frame
+    gb: specifies column
+    
+    Attributes:
+    -------------
+    group: number of rows per cluster in gb-specified class
+    shape: dimensions of data frame
+    dtypes: data types in data frame
+    nan: checks missing values in data frame
+    '''
+
+    def __init__(self, df, gb='class'):
+
+        self.group = df.groupby(gb).size()
+        self.shape = df.shape
+        self.dtypes = df.dtypes
+        self.nan = df.isnull().any()
+
+class FragTokenizer():
+
+    def __init__(self, df_train, kwargs**):
+        
+        '''
+        Parameter
+        -------------
+        df_train: data frame to create tokenizer
+        X_label = column to be fragmented and tokenized
+        y_label = column to be assigned to y
+        
+        Attribute
+        -------------
+        X: values of X
+        y: values of y
+        '''
+        
+        self.Xlabel = X_label
+        self.ylabel = y_label
+        
+        X = # nlp-based tokens [to be updated once project is published]
+
+        # assignment of dependable variable
+
+        y = df_train[self.ylabel]
+
+        self.X = X
+        self.y = y
+        
+    def test(self, df_test):
+        
+        '''
+        This function would only tokenize the data on which the model would be tested.
+        Needs tokenizer from training data set.
+        
+        Parameter
+        -------------
+        df_test: data set to be tested with trained model
+        
+        Returns
+        -------------
+        Xt: values of Xt
+        yt: values of yt
+        '''
+
+        Xt = # nlp-based tokens [to be updated once project is published]
+        
+        yt = df_test[self.ylabel]
+        
+        print(f'X.shape: {Xt.shape} & y.shape : {yt.shape}\n')
+        
+        return Xt, yt
+
+class TrainModel():
+    
+    def __init__(self, X, y, test_size=0.2, random_state=42):
+        
+        from sklearn.model_selection import train_test_split
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+        
+        self.Xtrain = X_train
+        self.ytrain = y_train
+        self.Xtest = X_test
+        self.ytest = y_test
+        
+    def rf(self):
+        
+        from sklearn.ensemble import RandomForestClassifier
+        
+        rf_clf = RandomForestClassifier(tuned params [to be updated once project is published])
+        
+        rf_clf.fit(self.Xtrain, self.ytrain)
+        
+        return rf_clf
+    
+    def lgbm(self):
+        
+        from lightgbm import LGBMClassifier
+        
+        import os
+        
+        lgbm_clf = LGBMClassifier(tuned params [to be updated once project is published])
+        
+        lgbm_clf.fit(self.Xtrain, self.ytrain)
+        
+        return lgbm_clf
+
 # functions
 
 def fasta_reader(path):
@@ -53,26 +167,6 @@ def load_excel(path):
 
     return df
 
-def df_details(df):
-
-    '''
-    This function helps to understand the data set.
-    '''
-
-    # to know classes of enzymes and samples in each class
-    print('Classes of enzymes:\n', df.groupby('class').size(), '\n')
-
-    # to know the total number of samples in all classes
-    print('Shape of dataframe:\n', df.shape, '\n')
-
-    # to know about data types of each column
-    print('Data type:\n', df.dtypes, '\n')
-
-    # to know if any data point is missing and requires support
-    print('Check for missing values:\n', df.isnull().any(), '\n\n')
-
-    return df.copy()
-
 def seq_len_check(seqs):
     '''
     This function tries to check what is the distribution of protein length
@@ -91,29 +185,6 @@ def seq_len_check(seqs):
     seq_len.sort(reverse=True)
     
     return seq_len
-
-def get_k_mers(row, size):
-
-    '''
-    This function generates fragments of sequence with a specified parameter.
-    '''
-
-    result = 0 # to be updated once project is published
-
-    return result 
-
-def frag_tokenizer(df_inp, kmer):
-
-    '''
-    This function tokenizes fragments of sequence using natural language
-    processing (NLP) method.
-    '''
-
-    Xt = 0 # to be updated once project is published
-
-    yt = 0 # to be updated once project is published
-
-    return Xt, yt
 
 def feature_selection(n1, n2, Xt, randomize=False):
 
@@ -198,7 +269,6 @@ def feature2accuracy(begin, end, step, length, Xt):
 
     # generate a plot to visualize the feature subset-accuracy relationship
     plt.plot(list(range(begin, end, step)), scores, color='r', marker='o')
-    plt.show()
 
     return list(range(begin, end, step)), scores 
 
@@ -207,17 +277,10 @@ def feature2accuracy(begin, end, step, length, Xt):
 
 df = load_excel('path')
 
-# optional: check details of data frame
-df_details(df)
-
-X, y = frag_tokenizer(df, kmer)
-
-# split data set into training and test sets
-from sklearn.model_selection import train_test_split
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# feature and independent variable assignment
+xy_values = FragTokenizer(df_inp)
+Xt = xy_values.X
+yt = xy_values.y
 
 # create an instance of classifier and train it
-from lightgbm import LGBMClassifier
-classifier = LGBMClassifier() # params to be updated once project is published
-classifier.fit(X_train, y_train)
+classifier = TrainModel(X, y).lgbm()

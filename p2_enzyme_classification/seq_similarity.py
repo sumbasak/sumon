@@ -15,7 +15,7 @@ df = pd.read_excel('path/to/enzyme/excel/file.xlsx')
 df_in = df[['identifier', 'sequence']]
 
 # run seq similarity check and filtering with cdhit
-df_out, df_clstr = cdhit.set_options(c=0.4, T=0).cluster(df_in)
+df_out, df_clstr = cdhit.set_options(**kwargs).cluster(df_in)
 
 # save final data frame and cluster details
 df_out.to_excel('desired_file_name.xlsx', index=False)
